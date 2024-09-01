@@ -5,13 +5,10 @@ from keras import layers
 from keras._tf_keras.keras.preprocessing.image import load_img, img_to_array
 from file_handler import extract_text
 import numpy as np
-<<<<<<< HEAD:public/PersonalIdentityIdentification.py
+import fitz
 import pandas as pd
-from detector import detect_ids
-=======
-import fitz  # PyMuPDF
 from pdf2image import convert_from_path
->>>>>>> 20b8a875794846b9580b91d27d77c4aaaf09bf48:main.py
+from detector import detect_ids
 
 positive_samples = [
     "object_detection/imgs/img1.png",
@@ -159,28 +156,6 @@ model.compile(optimizer='adam',
 # Train the model
 model.fit(dataset, epochs=10)
 
-<<<<<<< HEAD:public/PersonalIdentityIdentification.py
-input_image_path = "C:/object_detection/WhatsApp Image 2024-08-21 at 15.57.49_cd148554.jpg" # Replace with your input image path
-
-# Make a prediction
-input_image = preprocess_image(input_image_path)
-prediction = model.predict(input_image)
-
-positive_percentage = prediction[0][1] * 100  # Percentage for the positive class
-negative_percentage = prediction[0][0] * 100  # Percentage for the negative class
-
-
-
-    # Interpret the prediction
-predicted_class = np.argmax(prediction)  # Get the index of the highest probability
-
-if predicted_class == 1:
-    text = extract_text(input_image_path)
-    detect_ids(text)
-else:
-    print("No Personal Identity Information given")
-=======
 # Example: Process a PDF file and classify its contents
 pdf_path = "Adhr Crd_Purnima.pdf"  # Replace with the path to your PDF file
 process_pdf_images_for_model(pdf_path, model)
->>>>>>> 20b8a875794846b9580b91d27d77c4aaaf09bf48:main.py
