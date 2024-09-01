@@ -2,8 +2,10 @@ import tensorflow as tf
 from tensorflow import keras
 from keras import layers
 from keras._tf_keras.keras.preprocessing.image import load_img, img_to_array
+from file_handler import extract_text
 import numpy as np
 import pandas as pd
+from detector import detect_ids
 
 # Create a sample dataset
 positive_samples = [
@@ -75,21 +77,22 @@ model.compile(optimizer='adam',
 # Train the model
 model.fit(dataset, epochs=100)
 
-input_image_path = "C:/object_detection/IMG_1760.jpeg"  # Replace with your input image path
-input_image = preprocess_image(input_image_path)
+input_image_path = "C:/object_detection/WhatsApp Image 2024-08-21 at 15.57.49_cd148554.jpg" # Replace with your input image path
 
 # Make a prediction
+input_image = preprocess_image(input_image_path)
 prediction = model.predict(input_image)
-
 
 positive_percentage = prediction[0][1] * 100  # Percentage for the positive class
 negative_percentage = prediction[0][0] * 100  # Percentage for the negative class
 
 
 
-# Interpret the prediction
+    # Interpret the prediction
 predicted_class = np.argmax(prediction)  # Get the index of the highest probability
+
 if predicted_class == 1:
-    print("The input image is predicted to contain Personal Identity Information." , positive_percentage , "%")
+    text = extract_text(input_image_path)
+    detect_ids(text)
 else:
-    print("The input image is predicted to not contain Personal Identity Information." , negative_percentage , "%")
+    print("No Personal Identity Information given")
